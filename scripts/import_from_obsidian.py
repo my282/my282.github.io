@@ -41,10 +41,21 @@ def slugify(name: str) -> str:
     return name
 
 
-def extract_title(text: str, fallback: str) -> str:
+def extract_title_and_body(text: str, fallback: str) -> tuple[str, str]:
+    """Return (title, body). If the note already starts with a top-level
+    '# Heading', that heading is used as the title and the body is left
+    untouched. Otherwise the title falls back to `fallback` (or the first
+    H1 found anywhere in the note) and is inserted as a new H1 at the top
+    of the body."""
+    stripped = text.lstrip("\n")
+    top_match = re.match(r"#[ \t]+(.+)", stripped)
+    if top_match:
+        return top_match.group(1).strip(), text
+
     without_code = FENCED_CODE_RE.sub("", text)
-    match = HEADING_RE.search(without_code)
-    return match.group(1).strip() if match else fallback
+    anywhere_match = HEADING_RE.search(without_code)
+    title = anywhere_match.group(1).strip() if anywhere_match else fallback
+    return title, f"# {title}\n\n{stripped}"
 
 
 def find_vault_root(note_path: Path) -> Path | None:
@@ -95,12 +106,12 @@ def resolve_source(source_arg: str, vault: Path) -> Path:
     return matches[0].resolve()
 
 
-def compute_nav_order(section_dir: Path, override: int | None) -> int:
+def compute_nav_order(section_dir: Path, override: int | None, exclude: Path | None = None) -> int:
     if override is not None:
         return override
     max_order = 0
     for md in list(section_dir.glob("*.md")) + list(section_dir.glob("*.markdown")):
-        if md.stem == "index":
+        if md.stem == "index" or md == exclude:
             continue
         text = md.read_text(encoding="utf-8", errors="ignore")
         fm_match = FRONT_MATTER_RE.match(text)
@@ -136,7 +147,7 @@ def main() -> int:
     text = source.read_text(encoding="utf-8")
     text = FRONT_MATTER_RE.sub("", text, count=1)
 
-    title = extract_title(text, fallback=source.stem)
+    title, text = extract_title_and_body(text, fallback=source.stem)
 
     slug = slugify(args.slug or source.stem)
     section_dir = REPO_ROOT / args.section
@@ -179,7 +190,7 @@ def main() -> int:
     callouts = CALLOUT_RE.findall(text)
 
     parent_title = "Writeups" if args.section == "writeups" else "Notes"
-    nav_order = compute_nav_order(section_dir, args.nav_order)
+    nav_order = compute_nav_order(section_dir, args.nav_order, exclude=dest_md)
 
     front_matter = (
         "---\n"

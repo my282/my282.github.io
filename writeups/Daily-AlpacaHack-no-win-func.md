@@ -5,6 +5,8 @@ parent: Writeups
 nav_order: 2
 ---
 
+# Daily AlpacaHack - no win func
+
 ## 問題
 ![Pasted image 20260907115746](/assets/img/writeups/Daily-AlpacaHack-no-win-func/Pasted-image-20260907115746.png)
 
