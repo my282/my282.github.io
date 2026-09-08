@@ -4,7 +4,7 @@ layout: home
 nav_order: 1
 ---
 
-# my282's Notes
+# famous's Notes
 
 Writeups and technical notes.
 
