@@ -1,0 +1,37 @@
+// Callout boxes, styled after GitHub's own Markdown alerts.
+// Usage (kramdown attribute list attaches the class to the blockquote above it):
+//
+//   > **Warning**
+//   > libcのバージョン差に注意。
+//   {: .warning}
+//
+// Available classes: .note .tip .warning .important
+
+blockquote.note,
+blockquote.tip,
+blockquote.warning,
+blockquote.important {
+  border-left-width: 4px;
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+}
+
+blockquote.note {
+  border-left-color: #4493f8;
+  background-color: rgba(68, 147, 248, 0.1);
+}
+
+blockquote.tip {
+  border-left-color: #3fb950;
+  background-color: rgba(63, 185, 80, 0.1);
+}
+
+blockquote.warning {
+  border-left-color: #d29922;
+  background-color: rgba(210, 153, 34, 0.1);
+}
+
+blockquote.important {
+  border-left-color: #f85149;
+  background-color: rgba(248, 81, 73, 0.1);
+}
