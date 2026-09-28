@@ -57,3 +57,7 @@ exclude:
   - vendor/cache/
   - vendor/gems/
   - vendor/ruby/
+
+# Treat single newlines as <br>, matching Obsidian's default rendering
+kramdown:
+  hard_wrap: true
