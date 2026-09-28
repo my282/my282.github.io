@@ -1,11 +1,11 @@
 ---
-title: H7CTF - Recap
+title: H7CTF 2026 Quals - Recap
 layout: default
 parent: Recaps
 nav_order: 1
 has_children: false
 ---
-# H7CTF - Recap
+# H7CTF 2026 Quals - Recap
 ## 結果
 ![](./assets/recap-score.png)
 Team score 2733, 211位でフィニッシュでした。
