@@ -1,7 +1,7 @@
 ---
 title: H7CTF - Recap
 layout: default
-parent: recapws
+parent: Recaps
 nav_order: 1
 has_children: false
 ---
