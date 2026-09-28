@@ -1,7 +1,8 @@
 ---
 title: Daily AlpacaHack - what-is-my-pointer
 layout: default
-parent: Writeups
+parent: Daily AlpacaHack
+grand_parent: Writeups
 nav_order: 1
 ---
 
