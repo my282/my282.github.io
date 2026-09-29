@@ -35,3 +35,10 @@ blockquote.important {
   border-left-color: #f85149;
   background-color: rgba(248, 81, 73, 0.1);
 }
+
+// Just the Docs renders h4 as an uppercase, letter-spaced label (.text-delta).
+// Keep the original casing so function names like `main` stay readable.
+.main-content h4 {
+  text-transform: none;
+  letter-spacing: normal;
+}
