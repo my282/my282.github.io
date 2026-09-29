@@ -6,19 +6,19 @@ grand_parent: Writeups
 nav_order: 1
 ---
 # H7CTF - Papers Please
-# 問題
+## 問題
 
-## 説明
+### 説明
 ![](./assets/papers-please.png)
 
 
-## 配布ファイル
+### 配布ファイル
 ```zsh
 ❯ ls
 README.txt  checkpoint  ld-linux-x86-64.so.2  libc.so.6
 ```
 
-## 実行結果
+### 実行結果
 ```
 ❯ ./checkpoint
 === Sparrow Freight border checkpoint ===
@@ -28,14 +28,14 @@ Access denied, aaaa
 . Turn back.
 ```
 
-# 解法
-## 要約
+## 解法
+### 要約
 ソースコードは添付されていないのでデコンパイラかobjdumpで解析必須.
 main関数からは呼び出されていないflagを表示する関数,```grant_access```関数が存在.
 SSPとPIEがともに無効かつ,read関数が64bytesの配列に対し256bytes入力を受け付けるため,Buffer Overflowでreturn addressを書き換え。
-## Ghidraでの解析結果
+### Ghidraでの解析結果
 
-### main
+#### main
 ```c
 undefined8 main(void)
 
@@ -46,7 +46,7 @@ undefined8 main(void)
 }
 ```
 
-### checkpoint
+#### checkpoint
 ```checkpoint```関数のローカル変数はundefined1型(1byte)長さ64の配列のみ。
 ```c
 void checkpoint(void)
@@ -62,7 +62,7 @@ void checkpoint(void)
 }
 ```
 
-### grant_access
+#### grant_access
 ```c
 void grant_access(void)
 
@@ -83,7 +83,7 @@ void grant_access(void)
   return;
 }
 ```
-## solve.py
+### solve.py
 ```python
 win = 0x401216
 
