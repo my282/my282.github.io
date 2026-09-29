@@ -1,3 +1,11 @@
+---
+title: H7CTF - Papers Please
+layout: default
+parent: H7CTF 2026
+grand_parent: Writeups
+nav_order: 1
+---
+# H7CTF - Papers Please
 # 問題
 
 ## 説明
