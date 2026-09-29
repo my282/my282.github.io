@@ -31,7 +31,7 @@ Access denied, aaaa
 ## 解法
 ### 要約
 ソースコードは添付されていないのでデコンパイラかobjdumpで解析必須.
-main関数からは呼び出されていないflagを表示する関数,```grant_access```関数が存在.
+main関数からは呼び出されていないflagを表示する関数,`grant_access`関数が存在.
 SSPとPIEがともに無効かつ,read関数が64bytesの配列に対し256bytes入力を受け付けるため,Buffer Overflowでreturn addressを書き換え。
 ### Ghidraでの解析結果
 
@@ -47,7 +47,7 @@ undefined8 main(void)
 ```
 
 #### checkpoint
-```checkpoint```関数のローカル変数はundefined1型(1byte)長さ64の配列のみ。
+`checkpoint`関数のローカル変数はundefined1型(1byte)長さ64の配列のみ。
 
 ```c
 void checkpoint(void)
