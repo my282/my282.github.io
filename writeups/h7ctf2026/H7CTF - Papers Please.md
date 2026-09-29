@@ -48,6 +48,7 @@ undefined8 main(void)
 
 #### checkpoint
 ```checkpoint```関数のローカル変数はundefined1型(1byte)長さ64の配列のみ。
+
 ```c
 void checkpoint(void)
 
