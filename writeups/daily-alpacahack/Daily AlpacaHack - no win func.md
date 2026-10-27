@@ -7,7 +7,7 @@ nav_order: 1
 ---
 # Daily AlpacaHack - no win func
 ## 問題
-![[Pasted image 20260907115746.png]]
+![問題画面](./assets/challenge.png)
 
 ## 解法
 ### 要約
@@ -17,16 +17,18 @@ flag.txtはバイナリと同じディレクトリに格納されており、シ
 gadgetのアドレスを特定するために、printfのアドレスのリークを使用する。
 ROPとone-gadget RCEの両方でシェルは奪取可能。（他にもあるのかも。）
 
-> [!warning]
+> **Warning**
+>
 > libcからgadgetのアドレスを引っ張ってくる際、バージョンの差に注意。
 > Dockerからライブラリを引っ張ってくること。
-> ```
-> docker create --name tmp ubuntu:24.04@sha256:c35e29c9450151419d9448b0fd75374fec4fff364a27f176fb458d472dfc9e54
+
+```zsh
+docker create --name tmp ubuntu:24.04@sha256:c35e29c9450151419d9448b0fd75374fec4fff364a27f176fb458d472dfc9e54
 docker cp tmp:/lib/x86_64-linux-gnu/libc.so.6 ./libc.so.6
 docker cp tmp:/lib64/ld-linux-x86-64.so.2 ./ld.so
 docker rm tmp
-> ``` 
-> 
+```
+
 ### ROP
 やることは典型的なROP。
 ```system```関数のアドレス、```"/bin/sh"```へのポインタ、```pop rdi; ret;```ガジェットをスタックに仕組んでGO。
@@ -38,7 +40,7 @@ System V AMD64 ABIでは、関数のcall直前にスタックが16バイト境�
 
 下図のように、ret gadgetをreturn addrの位置に仕込むことでptr to system()が16バイト境界にアライメントされる。
 (図のアドレスは、下位1桁以外は適当)
-![[Pasted image 20260916131307.png]]
+![スタックアライメント](./assets/stack-alignment.png)
 
 #### solve.py
 ```python
@@ -85,7 +87,7 @@ if __name__ == "__main__":
 
 ### One-gadget RCE
 One-gadget RCEでは、その名の通り一つのgadgetのみでシェルの奪取を行う。
-使用するツールはこちら:https://github.com/david942j/one_gadget\
+使用するツールはこちら: https://github.com/david942j/one_gadget
 
 #### one_gadgetから得られる情報
 ```zsh
